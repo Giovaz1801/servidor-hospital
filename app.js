@@ -15,9 +15,14 @@ app.use(bodyParser.json());
 var appRoutes = require('./routes/app');
 var usuarioRoutes = require('./routes/usuario');
 var loginRoutes = require('./routes/login');
+var hospitalRoutes = require('./routes/hospital');
+var medicoRoutes = require('./routes/medico');
+var busquedaRoutes = require('./routes/busqueda');
+var uploadRoutes = require('./routes/upload');
+var imagenesRoutes = require('./routes/imagenes');
 
 // Conexión a la BD
-mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) => {
+mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', { useNewUrlParser: true }, (err, res) => {
     if (err) throw err;
     console.log(' \x1b[36m%s\x1b[0m', 'Base de datos en el puerto 27017');
 });
@@ -25,6 +30,11 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) =
 // Rutas
 app.use('/usuario', usuarioRoutes);
 app.use('/login', loginRoutes);
+app.use('/hospital', hospitalRoutes);
+app.use('/medico', medicoRoutes);
+app.use('/busqueda', busquedaRoutes);
+app.use('/upload', uploadRoutes);
+app.use('/img', imagenesRoutes);
 app.use('/', appRoutes);
 
 // Escuchar peticiones
